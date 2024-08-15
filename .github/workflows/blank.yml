@@ -20,8 +20,11 @@ jobs:
         git config user.email github-actions@github.com
 
     - name: Sync Gitee to GitHub
+      env:
+        GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
+        GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
       run: |
-        git remote add gitee https://gitee.com/BuGlandStudio/leaderboard.git
+        git remote add gitee https://$GITEE_USERNAME:$GITEE_TOKEN@gitee.com/BuGlandStudio/leaderboard.git
         git fetch gitee
         git merge gitee/master --allow-unrelated-histories
         git push origin main
